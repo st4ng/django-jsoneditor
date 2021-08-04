@@ -15,6 +15,8 @@ django.jQuery(function () {
             }
             var value = $f[0].value;
             var disabled = $f.is(':disabled');
+            const schema = $nxt.data("schema")
+            const schemaRefs = $nxt.data("schemarefs")
 
             $nxt.detach();
             $nxt = django.jQuery('<div class="outer_jsoneditor" cols="40" rows="10" id="' + id + '" name="' + name + '"></div>');
@@ -44,6 +46,13 @@ django.jQuery(function () {
 
                     // Initialise contents of form even on unparseable JSON on load
                     editor.setText(value);
+                }
+
+                // Set editor schema.
+                if (schema) {
+                    try {
+                        editor.setSchema(schema, schemaRefs);
+                    } catch {}
                 }
 
                 // If initialized in code mode, set ace options right away

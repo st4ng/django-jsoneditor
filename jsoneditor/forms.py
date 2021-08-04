@@ -1,11 +1,10 @@
 import json
-from packaging import version
 
 import django
 from django.conf import settings
 from django.forms.widgets import Textarea
 from django.utils.safestring import mark_safe
-
+from packaging import version
 
 try:
     from django.forms.util import flatatt
@@ -29,6 +28,7 @@ else:
 
 
 class JSONEditor(Textarea):
+      
     class Media:
         js = (
             'admin/js/vendor/jquery/jquery.js',
@@ -45,6 +45,10 @@ class JSONEditor(Textarea):
             )
         }
 
+    def __init__(self, schema = None, schema_ref = None):
+        self.schema = schema
+        self.schema_refs = schema_ref
+        super(JSONEditor,self).__init__()
 
     def render(self, name, value, attrs=None, renderer=None):
         if not isinstance(value, basestring):
@@ -59,6 +63,10 @@ class JSONEditor(Textarea):
         div_attrs = {}
         div_attrs.update(attrs)
         div_attrs.update({'id': (attrs['id'] + '_jsoneditor')})
+        if self.schema:
+            div_attrs.update({"data-schema": json.dumps(self.schema)})
+        if self.schema_refs:
+            div_attrs.update({"data-schemaRefs": json.dumps(self.schema_refs)})
         if version.parse(django.get_version()) >= version.parse("1.11"):
             final_attrs = self.build_attrs(div_attrs, extra_attrs={'name': name})
         else:
