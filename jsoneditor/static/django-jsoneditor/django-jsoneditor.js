@@ -18,6 +18,8 @@ django.jQuery(function () {
             const schema = $nxt.data("schema")
             const schemaRefs = $nxt.data("schemarefs")
 
+            $f.closest(".form-row").css("overflow", "visible")
+
             $nxt.detach();
             $nxt = django.jQuery('<div class="outer_jsoneditor" cols="40" rows="10" id="' + id + '" name="' + name + '"></div>');
             $f.parent().append($nxt);
