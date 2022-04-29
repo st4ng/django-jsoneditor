@@ -21,8 +21,8 @@ class JSONField(_JSONField):
     def formfield(self, **kwargs):
         defaults = {
             'form_class': kwargs.get('form_class', JSONFormField),
-            'schema': self.schema,
-            'schema_refs': self.schema_refs
+            'schema': self.schema() if callable(self.schema) else self.schema,
+            'schema_refs': self.schema_refs() if callable(self.schema_refs) else self.schema_refs
         }
         defaults.update(kwargs)
         return super(JSONField, self).formfield(**defaults)
