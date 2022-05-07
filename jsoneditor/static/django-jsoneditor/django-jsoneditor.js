@@ -13,6 +13,7 @@ django.jQuery(function () {
             if ($nxt.attr("name") == name) {
                 continue;
             }
+            $nxt.parent().parent().addClass("django-jsoneditor--form-row")
             var value = $f[0].value;
             var disabled = $f.is(':disabled');
             const schema = {
@@ -34,6 +35,9 @@ django.jQuery(function () {
                     onModeChange: function(endMode, startMode) {
                         if (endMode == 'code') {
                             editor.aceEditor.setOptions(django_jsoneditor_ace_options);
+                            $nxt.addClass("django-jsoneditor--code-mode")
+                        } else {
+                            $nxt.removeClass("django-jsoneditor--code-mode")
                         }
                     },
                     onEditable: function() {

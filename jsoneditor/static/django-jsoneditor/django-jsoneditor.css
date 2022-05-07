@@ -1,7 +1,16 @@
-div .outer_jsoneditor {
+.django-jsoneditor--form-row{
+    overflow: visible;
+    display: grid;
+}
+.django-jsoneditor--form-row .outer_jsoneditor {
     float: left;
     width: 100%;
     resize: both;
-    overflow: auto;
     max-width: 100%;
+}
+
+.django-jsoneditor--form-row .outer_jsoneditor.django-jsoneditor--code-mode{
+    resize: both;
+    max-width: 100%;
+    overflow: auto;
 }
